@@ -170,6 +170,14 @@ class DossiersController extends Controller
      */
     public function destroy($id)
     {
-        //
+        if(auth()->user()->role_id != 1) {
+            return redirect()->route('dossiers.index')->with('error', 'Vous n\'avez pas les droits pour supprimer un dossier!');
+        }
+        $dossier = Dossier::find($id);
+        if ($dossier == null) {
+            return redirect()->route('dossiers.index')->with('error', 'Le dossier n\'existe pas!');
+        }
+        $dossier->delete();
+        return redirect()->route('dossiers.index')->with('success', 'Le dossier à été supprimé!');
     }
 }

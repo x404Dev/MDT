@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <a class="btn btn-link pl-1 pd-3" href="{{ url()->previous() }}"><i class="far fa-arrow-alt-circle-left"></i> Retour</a>
+    <a class="btn btn-link pl-1 pd-3" href="{{ route("dossiers.index") }}"><i class="far fa-arrow-alt-circle-left"></i> Retour</a>
     <div class="card shadow" style="max-height: 80vh;">
         <div class=" card-header py-3 ">
             <p class="text-primary m-0 font-weight-bold ">Dossier de citoyen</p>
@@ -83,7 +83,7 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
-              <button type="button" class="btn btn-danger">Supprimer</button>
+              <form method="POST" action="{{ route('dossiers.destroy', $dossier->id) }}">@csrf @method('DELETE')<button type="submit" class="btn btn-danger">Supprimer</button></form>
             </div>
           </div>
         </div>
