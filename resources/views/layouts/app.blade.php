@@ -88,14 +88,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/x-icon" href="favicon.ico">
     <link rel="stylesheet" href="{{asset("assets/bootstrap/css/bootstrap.min.css")}}">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+</script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js" integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+" crossorigin="anonymous"></script>
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
-    </script>
+
     <link rel="stylesheet" href="{{asset("assets/fonts/fontawesome5-overrides.min.css")}}">
+    @yield('styles')
     <style>
         @font-face {
             font-family: BellSlimMedium;
@@ -111,18 +114,22 @@
             text-decoration: underline !important;
         }
 
-        .red-btn {
+        .blue-btn {
             border-radius: 50px;
             border: 2px #006aff solid;
             color: #006aff;
+            transition: 0.3s;
+            padding: 2px 15px;
+            background-color: transparent;
+            margin: 2px;
         }
 
-        .red-btn:hover {
+        .blue-btn:hover {
             background-color: #006aff;
             color: #fff;
         }
 
-        .red-btn.disabled {
+        .blue-btn.disabled {
             border-radius: 50px;
             background-color: #fff !important;
             border: 2px #006aff solid !important;
@@ -134,6 +141,9 @@
             border-radius: 50px;
             border: 2px #262626 solid;
             color: #262626;
+            transition: 0.3s;
+            padding: 2px 15px;
+            margin: 2px;
         }
 
         .grey-btn:hover {
@@ -227,6 +237,13 @@
             font-family: BellSlimMedium, sans-serif;
         }
 
+        #content-wrapper {
+            background-color: #e0e0e0 !important;
+        }
+
+        .table {
+            background-color: #fff;
+        }
     </style>
 </head>
 
@@ -247,10 +264,10 @@
                     <li class="nav-item"><a class="nav-link" style="padding: 1.2rem 3rem !important" href="/bolo"><i class="fas fa-binoculars"></i><span>BOLO</span></a></li>
                     @if (auth()->user()->role_id == 1)
                         <li class="nav-item"><a class="nav-link" style="padding: 1.2rem 3rem !important"
-                                href="{{ route('users.index') }}"><i class="far fa-cogs"></i><span>
+                                href=""><i class="fas fa-cogs"></i><span>
                                     Utilisateurs</span></a></li>
                         <li class="nav-item"><a class="nav-link" style="padding: 1.2rem 3rem !important"
-                                href="{{ route('causes.index') }}"><i class="far fa-cogs"></i><span>
+                                href=""><i class="fas fa-cogs"></i><span>
                                     Charges</span></a></li>
 
                     @endif
@@ -300,7 +317,7 @@
                     </ul>
                 </nav>
                 <div class="container-fluid px-5 py-3">
-                    {{-- @include('inc.messages') --}}
+                    @include('inc.messages')
                     @yield("content")
                 </div>
             </div>
