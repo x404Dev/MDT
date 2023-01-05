@@ -76,7 +76,7 @@
             <th style="width: 1%" scope="row">{{ $dossier->id }}</th>
             <td><a href="{{ route('dossiers.show', $dossier->id) }}">{{ $dossier->nom }}</a></td>
             <td style="width: 1%" class="text-center">@if($dossier->id == 1)<i style="color: rgb(40, 201, 0);" class="fas fa-check"></i>@else<i style="color: rgb(255, 57, 57);" class="fas fa-times"></i>@endif</td>
-            <td style="width: 1%"><div style="white-space: nowrap"><a href="{{ route('dossiers.show', $dossier->id) }}" class="btn grey-btn" style="white-space: nowrap;"><i class="fas fa-eye"></i> Voir</a><a class="btn blue-btn" style="white-space: nowrap;"><i class="fas fa-file-alt"></i> Nouveau Rapport</a></div>
+            <td style="width: 1%"><div style="white-space: nowrap"><a href="{{ route('dossiers.show', $dossier->id) }}" class="btn grey-btn" style="white-space: nowrap;"><i class="fas fa-eye"></i> Voir</a><a class="btn blue-btn" href="{{ route('dossiers.rapports.create', $dossier->id) }}" style="white-space: nowrap;"><i class="fas fa-file-alt"></i> Nouveau Rapport</a></div>
             </td>
             <td style="width: 1%; white-space: nowrap">{{ $dossier->created_at }}</td>
             <td style="width: 1%; white-space: nowrap">{{ $dossier->updated_at }}</td>

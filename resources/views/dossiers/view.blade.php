@@ -53,7 +53,7 @@
                         <div class="card shadow mt-4" style="height: 385px;">
                             <div class=" card-header py-3 ">
                                 <a class="btn save-btn-sm float-right"
-                                    href=""><i
+                                    href="{{ route('dossiers.rapports.create', $dossier->id) }}"><i
                                         class="far fa-plus-square"></i> Nouveau</a>
                                 <p class="text-primary m-0 mt-1 font-weight-bold text-left">Rapports</p>
                             </div>
