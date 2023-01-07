@@ -16,7 +16,7 @@ class RapportsController extends Controller
      */
     public function index()
     {
-        //
+        return abort(404);
     }
 
     /**
@@ -28,7 +28,7 @@ class RapportsController extends Controller
     {
         return view('dossiers.rapports.create', [
             'dossier' => Dossier::find($id),
-            'charges' => Charge::all(),
+            'charges' => Charge::orderBy('nom')->get(),
         ]);
     }
 
@@ -85,7 +85,7 @@ class RapportsController extends Controller
         return view('dossiers.rapports.show', [
             'rapport' => $rapport,
             'dossier' => Dossier::find($rapport->dossier_id),
-            'chargesAll' => Charge::all(),
+            'chargesAll' => Charge::orderBy('nom')->get(),
             'charges' => $charges,
         ]);
     }

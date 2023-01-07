@@ -3,6 +3,8 @@
 use App\Http\Controllers\DossiersController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RapportsController;
+use App\Http\Controllers\MandatsController;
+use App\Http\Controllers\ChargesController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,7 +20,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+})->middleware(['auth'])->name('dashboard');
 
 Route::get('/dashboard', function () {
     return redirect('/');
@@ -29,8 +31,14 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::resource('dossiers', DossiersController::class);
+    Route::resource('mandats', MandatsController::class);
+    
 
     Route::resource('dossiers.rapports', RapportsController::class)->shallow();
+});
+
+Route::middleware(['auth', 'admin'])->group(function () {
+    Route::resource('charges', ChargesController::class);
 });
 
 require __DIR__ . '/auth.php';

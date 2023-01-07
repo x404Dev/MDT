@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Charge;
 
 class ChargesController extends Controller
 {
@@ -13,7 +14,11 @@ class ChargesController extends Controller
      */
     public function index()
     {
-        //
+        $charges = Charge::orderBy('nom')->paginate(35);
+
+        return view('charges.index', [
+            'charges' => $charges
+        ]);
     }
 
     /**
@@ -23,7 +28,7 @@ class ChargesController extends Controller
      */
     public function create()
     {
-        //
+        return view('charges.create');
     }
 
     /**
@@ -34,7 +39,21 @@ class ChargesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nom' => 'required|string|min:3|max:45',
+            'cout' => 'required|integer|min:0',
+            'mois' => 'required|integer|min:0'
+        ]);
+
+        $charge = new Charge([
+            'nom' => $request->get('nom'),
+            'cout' => $request->get('cout'),
+            'mois' => $request->get('mois')
+        ]);
+
+        $charge->save();
+
+        return redirect('/charges')->with('success', 'Charge ajoutée');
     }
 
     /**
@@ -45,7 +64,11 @@ class ChargesController extends Controller
      */
     public function show($id)
     {
-        //
+        $charge = Charge::find($id);
+
+        return view('charges.show', [
+            'charge' => $charge
+        ]);
     }
 
     /**
@@ -56,7 +79,7 @@ class ChargesController extends Controller
      */
     public function edit($id)
     {
-        //
+        return abort(404);
     }
 
     /**
@@ -68,7 +91,19 @@ class ChargesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'nom' => 'required|string|min:3|max:45',
+            'cout' => 'required|integer|min:0',
+            'mois' => 'required|integer|min:0'
+        ]);
+        
+        $charge = Charge::find($id);
+        $charge->nom = $request->get('nom');
+        $charge->cout = $request->get('cout');
+        $charge->mois = $request->get('mois');
+        $charge->save();
+
+        return redirect('/charges')->with('success', 'Charge modifiée');
     }
 
     /**
@@ -79,6 +114,12 @@ class ChargesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $charge = Charge::find($id);
+        if($charge == null) {
+            return redirect('/charges')->with('error', 'Charge introuvable');
+        }
+        $charge->delete();
+
+        return redirect('/charges')->with('success', 'Charge supprimée');
     }
 }
