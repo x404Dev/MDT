@@ -12,18 +12,18 @@
                 <div class="col-7">
                     <form action="{{ route('dossiers.rapports.store', $dossier->id) }}" method="POST">
                         @csrf
-                        <input type="hidden" name="items" value="" class="charges-list">
+                        <input type="hidden" name="charges" value="" class="charges-list">
                         <div class="input-group">
                             <label for="dossier-num" class="mr-4 mt-2">Rapport #: </label>
                             <input id="dossier-num" class="dossier-input-red" readonly="readonly" value="00"
-                                style="width: 15% !important" placeholder="Nom">
+                                style="width: 15% !important" placeholder="Rapport ID">
                             <button class="btn save-btn ml-auto" type="submit"><i class="far fa-save"></i>
                                 Sauvegarder</button>
                         </div>
                         <hr>
                         <div class="input-group my-3">
                             <label for="nom" class="mr-4">Dossier: </label>
-                            <input type="text" readonly="readonly" id="nom" class="dossier-input-red"
+                            <input type="text" readonly="readonly" id="titre" class="dossier-input-red"
                                 value="{{ $dossier->nom }}" name="nom" placeholder="Dossier">
                         </div>
                         <div class="input-group my-3">
@@ -41,7 +41,7 @@
                         <div class="card shadow" style="height: 100%">
                             <div class=" card-header py-3 ">
                                 <button type="button" data-toggle="modal" data-target="#itemsModal"
-                                    class="btn save-btn-sm float-right"><i class="far fa-plus-square"></i> Edit</button>
+                                    class="btn save-btn-sm float-right"><i class="far fa-plus-square"></i> Modifier</button>
                                 <p class="text-primary m-0 mt-1 font-weight-bold text-left">Charges</p>
                             </div>
                             <div class="card-body" style="overflow-y:scroll;">
@@ -68,7 +68,7 @@
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content" style="height: 80vh;">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">Items</h5>
+                    <h5 class="modal-title" id="exampleModalLongTitle">Charges</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -114,7 +114,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" data-dismiss="modal" class="btn blue-btn">Close</button>
+                    <button type="button" data-dismiss="modal" class="btn blue-btn">Fermer</button>
                 </div>
             </div>
         </div>

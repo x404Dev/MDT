@@ -6,6 +6,7 @@ $(document).ready(function() {
         var title = $(this).find('.charge-title').html();
         var money = $(this).find('#charge-cout').html();
         var mois = $(this).find('#charge-mois').html();
+
         if ($(".charge-list").find('#charge-' + id).length > 0) {
 
             var charges = [];
@@ -23,7 +24,8 @@ $(document).ready(function() {
             charge.find('.charge-mois').html(mois * amount)
 
             $(".charge").each(function(index) {
-                charges.push($(this).find(".charge-id").val() + 'x' + amount);
+                var cAmount = $(this).find('.charge-amt').val()
+                charges.push($(this).find(".charge-id").val() + 'x' + (cAmount));
                 price += parseInt($(this).find('.charge-cout').html());
                 moisT += parseInt($(this).find(".charge-mois").html());
             });
@@ -33,7 +35,6 @@ $(document).ready(function() {
             $(".charges-list").val(charges.join(','));
             $(".cout-total").html(price);
             $(".mois-total").html(moisT);
-            console.log(charges.join(','))
 
         } else {
             $(".charge-list").append('<tr class="charge" id="charge-' + id + '"><td>' + title + ' x<span id="charge-amount">1</span><button class="charge-minus hoveru" style="border: none; background-color: transparent; color: red">[-]</button></td><td class="text-right charge-cout">' + money + '$</td><td class="text-right charge-mois">' + mois + '</td><input type="hidden" class="charge-id" value="' + id + '"><input type="hidden" class="charge-amt" value="1"></tr>');
@@ -43,7 +44,8 @@ $(document).ready(function() {
             var moisT = 0
 
             $(".charge").each(function(index) {
-                charges.push($(this).find(".charge-id").val() + 'x1');
+                var cAmount = $(this).find('.charge-amt').val()
+                charges.push($(this).find(".charge-id").val() + 'x' + (cAmount));
                 price += parseInt($(this).find('.charge-cout').html());
                 moisT += parseInt($(this).find(".charge-mois").html());
             });
@@ -51,7 +53,6 @@ $(document).ready(function() {
             $(".charges-list").val(charges.join(','));
             $(".cout-total").html(price);
             $(".mois-total").html(moisT);
-            console.log(charges.join(','))
         }
     });
 
@@ -60,7 +61,7 @@ $(document).ready(function() {
         var charge = $(this).closest('.charge');
         var amount = parseInt(charge.find('.charge-amt').val())
 
-        var id = charge.find(".item-id").val();
+        var id = charge.find(".charge-id").val();
         if (amount == 1) {
 
             $("#charge-" + id).remove();
@@ -70,8 +71,9 @@ $(document).ready(function() {
             var price = 0;
             var moisT = 0;
 
-            $(".item").each(function(index) {
-                charges.push($(this).find(".item-id").val());
+            $(".charge").each(function(index) {
+                var cAmount = $(this).find('.charge-amt').val()
+                charges.push($(this).find(".charge-id").val() + 'x' + (cAmount));
                 price += parseInt($(this).find(".item-money").html());
                 moisT += parseInt($(this).find(".charge-mois").html());
             });
@@ -79,8 +81,6 @@ $(document).ready(function() {
             $(".charges-list").val(charges.join(','));
             $(".cout-total").html(price);
             $(".mois-total").html(moisT);
-
-            console.log(charges.join(','))
 
         } else {
 
@@ -93,9 +93,12 @@ $(document).ready(function() {
             charge.find('.charge-cout').html(money * (amount - 1) + '$')
             charge.find('.charge-mois').html(mois * (amount - 1))
 
+            charge.find(".charge-amt").val(amount - 1)
+
             var charge2 = $(".charge-list-2").find('#charge-a' + id)
             $(".charge").each(function(index) {
-                charges.push($(this).find(".charge-id").val() + 'x' + (amount - 1));
+                var cAmount = $(this).find('.charge-amt').val()
+                charges.push($(this).find(".charge-id").val() + 'x' + (cAmount));
                 price += parseInt($(this).find('.charge-cout').html());
                 moisT += parseInt($(this).find(".charge-mois").html());
             });
@@ -105,10 +108,8 @@ $(document).ready(function() {
             charge.find('#charge-amount').html(amount - 1)
             charge2.find("#charge-amount").html(amount - 1)
 
-            charge.find(".charge-amt").val(amount - 1)
             $(".cout-total").html(price);
             $(".mois-total").html(moisT);
-            console.log(charges.join(','))
         }
     });
 });

@@ -103,7 +103,7 @@ class DossiersController extends Controller
      */
     public function show($id)
     {
-        $dossier = Dossier::find($id);
+        $dossier = Dossier::withCount('rapports')->find($id);
         if ($dossier) {
             return view('dossiers.view', [
                 'dossier' => $dossier,
