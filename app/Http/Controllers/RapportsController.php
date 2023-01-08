@@ -68,6 +68,9 @@ class RapportsController extends Controller
     {
         //
         $rapport = Rapport::find($id);
+        if(!$rapport) {
+            return redirect('/dossiers')->with('error', 'Rapport introuvable');
+        }
 
         $charges = [];
 
@@ -116,6 +119,9 @@ class RapportsController extends Controller
         ]);
 
         $rapport = Rapport::find($id);
+        if(!$rapport) {
+            return redirect('/dossiers')->with('error', 'Rapport introuvable');
+        }
         $rapport->titre = $request->input('titre');
         $rapport->notes = $request->input('notes');
         $rapport->charges = $request->input('charges');

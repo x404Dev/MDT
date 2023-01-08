@@ -74,7 +74,7 @@ $(document).ready(function() {
             $(".charge").each(function(index) {
                 var cAmount = $(this).find('.charge-amt').val()
                 charges.push($(this).find(".charge-id").val() + 'x' + (cAmount));
-                price += parseInt($(this).find(".item-money").html());
+                price += parseInt($(this).find(".charge-cout").html());
                 moisT += parseInt($(this).find(".charge-mois").html());
             });
 

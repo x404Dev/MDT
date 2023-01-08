@@ -37,7 +37,7 @@
     <div class="row my-2">
         <div class="col-md-6 text-nowrap ">
             <a class="blue-btn btn d-none d-sm-inline-block" href="{{ route('dossiers.create') }}"
-                role="button"><i class="far fa-plus-square fa-sm"></i> New</a>
+                role="button"><i class="far fa-plus-square fa-sm"></i> Ajouter</a>
 
         </div>
         <div class="col-md-6 ">
@@ -75,7 +75,7 @@
           <tr>
             <th style="width: 1%" scope="row">{{ $dossier->id }}</th>
             <td><a href="{{ route('dossiers.show', $dossier->id) }}">{{ $dossier->nom }}</a></td>
-            <td style="width: 1%" class="text-center">@if($dossier->id == 1)<i style="color: rgb(40, 201, 0);" class="fas fa-check"></i>@else<i style="color: rgb(255, 57, 57);" class="fas fa-times"></i>@endif</td>
+            <td style="width: 1%" class="text-center">@if ($dossier->mandats_count > 0)<i style="color: rgb(40, 201, 0);" class="fas fa-check"></i>@else<i style="color: rgb(255, 57, 57);" class="fas fa-times"></i>@endif</td>
             <td style="width: 1%"><div style="white-space: nowrap"><a href="{{ route('dossiers.show', $dossier->id) }}" class="btn grey-btn" style="white-space: nowrap;"><i class="fas fa-eye"></i> Voir</a><a class="btn blue-btn" href="{{ route('dossiers.rapports.create', $dossier->id) }}" style="white-space: nowrap;"><i class="fas fa-file-alt"></i> Nouveau Rapport</a></div>
             </td>
             <td style="width: 1%; white-space: nowrap">{{ $dossier->created_at }}</td>
@@ -85,6 +85,11 @@
           @else
           <tr>
             <td>Aucun dossier à montrer</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
           </tr>
           @endif
         </tbody>

@@ -40,6 +40,14 @@
                             </div>
                         </div>
                         <hr>
+                        @if ($dossier->mandats_count > 0)
+                            <div class="alert alert-danger"
+                                role="alert">
+                                <strong>ATTENTION!</strong> Cette personne est sous mandat! <strong><a
+                                        href="{{ route('mandats.index') }}">Cliquez-ici</a></strong> pour voir la liste des
+                                mandats!
+                            </div>
+                        @endif
                         <div class="input-group my-3">
                             <label for="nom"
                                 class="mr-4">Nom: </label>
@@ -113,11 +121,11 @@
                                             <table class="table table-striped">
                                                 <tbody>
                                                     @foreach ($dossier->rapports as $rapport)
-                                                    <tr>
-                                                        <th><a style="display: block"
-                                                                href="{{ route('rapports.show', $rapport->id) }} ">{{ $rapport->titre }}</a>
-                                                        </th>
-                                                    </tr>
+                                                        <tr>
+                                                            <th><a style="display: block"
+                                                                    href="{{ route('rapports.show', $rapport->id) }} ">{{ $rapport->titre }}</a>
+                                                            </th>
+                                                        </tr>
                                                     @endforeach
                                                 </tbody>
                                             </table>

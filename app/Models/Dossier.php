@@ -13,4 +13,8 @@ class Dossier extends Model
     public function rapports() {
         return $this->hasMany(Rapport::class);
     }
+
+    public function mandats() {
+        return $this->hasMany(Mandat::class);
+    }
 }

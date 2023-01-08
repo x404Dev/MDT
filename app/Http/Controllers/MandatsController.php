@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\Dossier;
 use App\Models\Charge;
+use App\Models\Dossier;
+use App\Models\Mandat;
+use Illuminate\Http\Request;
 
 class MandatsController extends Controller
 {
@@ -13,9 +14,36 @@ class MandatsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        if ($request->filled("search")) {
+            $search = $request->search;
+            $mandats = [];
+
+            if (is_numeric($search)) {
+                //check for IDs
+                //Dossier IDs
+                $mandID = Mandat::find($search);
+                if ($mandID != null) {
+                    array_push($mandats, $mandID);
+                }
+            } else {
+                //Check for names
+                $mandSearch = Dossier::query()->where('nom', 'LIKE', "%{$search}%")->first();
+                if ($mandSearch != null) {
+                    $mandats = $mandSearch->mandats()->paginate(25);
+                }
+            }
+
+            return view('mandats.index', [
+                'mandats' => $mandats,
+                'search' => $search,
+            ]);
+        } else {
+            return view('mandats.index', [
+                'mandats' => Mandat::orderBy('created_at', 'desc')->paginate(25),
+            ]);
+        }
     }
 
     /**
@@ -46,13 +74,13 @@ class MandatsController extends Controller
         ]);
 
         //store
-        $rapport = new Rapport();
-        $rapport->titre = $request->input('titre');
-        $rapport->notes = $request->input('notes');
-        $rapport->charges = $request->input('charges');
-        $rapport->dossier_id = $id;
-        $rapport->user_id = auth()->user()->id;
-        $rapport->save();
+        $mandat = new Mandat();
+        $mandat->titre = $request->input('titre');
+        $mandat->notes = $request->input('notes');
+        $mandat->charges = $request->input('charges');
+        $mandat->dossier_id = $id;
+        $mandat->user_id = auth()->user()->id;
+        $mandat->save();
 
         return redirect("/dossiers/" . $id)->with('success', 'Le mandat à été créé avec succès!');
 
@@ -66,7 +94,27 @@ class MandatsController extends Controller
      */
     public function show($id)
     {
-        //
+        $mandat = Mandat::find($id);
+
+        $charges = [];
+
+        if ($mandat->charges != '') {
+
+            foreach (explode(',', $mandat->charges) as $charge) {
+                $str = explode('x', $charge);
+                array_push($charges, [
+                    'id' => $str[0],
+                    'amt' => $str[1],
+                ]);
+            }
+        }
+        // dd($charges);
+        return view('mandats.show', [
+            'mandat' => $mandat,
+            'dossier' => Dossier::find($mandat->dossier_id),
+            'chargesAll' => Charge::orderBy('nom')->get(),
+            'charges' => $charges,
+        ]);
     }
 
     /**
@@ -77,7 +125,7 @@ class MandatsController extends Controller
      */
     public function edit($id)
     {
-        //
+        return abort(404);
     }
 
     /**
@@ -89,7 +137,19 @@ class MandatsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            "titre" => 'required|min:5|max:255|string',
+            "notes" => 'required|min:5|string',
+        ]);
+
+        //store
+        $mandat = Mandat::find($id);
+        $mandat->titre = $request->input('titre');
+        $mandat->notes = $request->input('notes');
+        $mandat->charges = $request->input('charges');
+        $mandat->save();
+
+        return redirect("/mandats/" . $mandat->id)->with('success', 'Le mandat à été modifié avec succès!');
     }
 
     /**
@@ -100,6 +160,16 @@ class MandatsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        if (auth()->user()->role_id != 1) {
+            return redirect('/mandats')->with('error', 'Vous n\'avez pas les droits pour supprimer un mandat!');
+        }
+        $mandat = Mandat::find($id);
+        if ($mandat == null) {
+            return redirect('/mandats')->with('error', 'Le mandat n\'existe pas!');
+        }
+        $dossier_id = $mandat->dossier_id;
+        $mandat->delete();
+
+        return redirect("mandats")->with('success', 'Le mandat à été supprimé avec succès!');
     }
 }

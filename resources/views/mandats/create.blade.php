@@ -28,7 +28,7 @@
                         </div>
                         <div class="input-group my-3">
                             <label for="titre" class="mr-4">Titre: </label>
-                            <input type="text" required id="titre" value="{{ {{ old('titre') }} }}" class="dossier-input" name="titre" placeholder="Titre">
+                            <input type="text" required id="titre" value="{{ old('titre') }}" class="dossier-input" name="titre" placeholder="Titre">
                         </div>
                         <div class="input-group my-3">
                             <label for="notes" class="mr-4">Informations: </label>

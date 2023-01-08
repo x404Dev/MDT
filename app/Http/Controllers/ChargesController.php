@@ -65,6 +65,9 @@ class ChargesController extends Controller
     public function show($id)
     {
         $charge = Charge::find($id);
+        if(!$charge) {
+            return redirect('/charges')->with('error', 'Charge introuvable');
+        }
 
         return view('charges.show', [
             'charge' => $charge
@@ -98,6 +101,9 @@ class ChargesController extends Controller
         ]);
         
         $charge = Charge::find($id);
+        if(!$charge) {
+            return redirect('/charges')->with('error', 'Charge introuvable');
+        }
         $charge->nom = $request->get('nom');
         $charge->cout = $request->get('cout');
         $charge->mois = $request->get('mois');

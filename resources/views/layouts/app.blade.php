@@ -261,7 +261,7 @@
                     <li class="nav-item"><a class="nav-link" style="padding: 1.2rem 3rem !important" href="/dossiers"><i
                                 class="fas fa-user"></i><span>Dossiers</span></a></li>
                     <li class="nav-item"><a class="nav-link" style="padding: 1.2rem 3rem !important" href="/mandats"><i class="fas fa-hand-paper"></i><span>Mandats</span></a></li>
-                    <li class="nav-item"><a class="nav-link" style="padding: 1.2rem 3rem !important" href="/bolo"><i class="fas fa-binoculars"></i><span>BOLO</span></a></li>
+                    <li class="nav-item"><a class="nav-link" style="padding: 1.2rem 3rem !important" href="/bolos"><i class="fas fa-binoculars"></i><span>BOLO</span></a></li>
                     @if (auth()->user()->role_id == 1)
                         <li class="nav-item"><a class="nav-link" style="padding: 1.2rem 3rem !important"
                                 href=""><i class="fas fa-cogs"></i><span>

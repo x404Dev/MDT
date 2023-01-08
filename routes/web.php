@@ -5,6 +5,7 @@ use App\Http\Controllers\DossiersController;
 use App\Http\Controllers\MandatsController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RapportsController;
+use App\Http\Controllers\BolosController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -38,6 +39,8 @@ Route::middleware('auth')->group(function () {
     Route::get('dossiers/{id}/mandats', [MandatsController::class, 'create'])->name('mandats.create');
 
     Route::post('dossiers/{id}/mandats', [MandatsController::class, 'store'])->name('mandats.store');
+
+    Route::resource('bolos', BolosController::class);
 
     Route::resource('dossiers.rapports', RapportsController::class)->shallow();
 });

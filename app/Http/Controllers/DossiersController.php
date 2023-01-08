@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Dossier;
+use App\Models\Mandat;
 use Illuminate\Http\Request;
 
 class DossiersController extends Controller
@@ -45,7 +46,7 @@ class DossiersController extends Controller
             ]);
         } else {
             return view('dossiers.index', [
-                'dossiers' => Dossier::paginate(25),
+                'dossiers' => Dossier::withCount('mandats')->paginate(25),
             ]);
         }
     }
@@ -84,6 +85,9 @@ class DossiersController extends Controller
         ]);
 
         $dossier = new Dossier();
+        if (!$dossier) {
+            return redirect()->route('dossiers.index')->with('error', 'Le dossier n\'existe pas!');
+        }
         $dossier->nom = $request->input('nom');
         $dossier->telephone = $request->input('telephone');
         $dossier->emploi = $request->input('emploi');
@@ -103,7 +107,7 @@ class DossiersController extends Controller
      */
     public function show($id)
     {
-        $dossier = Dossier::withCount('rapports')->find($id);
+        $dossier = Dossier::withCount(['rapports', 'mandats'])->find($id);
         if ($dossier) {
             return view('dossiers.view', [
                 'dossier' => $dossier,
@@ -120,7 +124,7 @@ class DossiersController extends Controller
      */
     public function edit($id)
     {
-        //
+        return abort(404);
     }
 
     /**
@@ -170,7 +174,7 @@ class DossiersController extends Controller
      */
     public function destroy($id)
     {
-        if(auth()->user()->role_id != 1) {
+        if (auth()->user()->role_id != 1) {
             return redirect()->route('dossiers.index')->with('error', 'Vous n\'avez pas les droits pour supprimer un dossier!');
         }
         $dossier = Dossier::find($id);
@@ -178,6 +182,12 @@ class DossiersController extends Controller
             return redirect()->route('dossiers.index')->with('error', 'Le dossier n\'existe pas!');
         }
         $dossier->delete();
+
+        //delete all mandats with dossier_id
+        $mandats = Mandat::where('dossier_id', $id)->get();
+        foreach ($mandats as $mandat) {
+            $mandat->delete();
+        }
         return redirect()->route('dossiers.index')->with('success', 'Le dossier à été supprimé!');
     }
 }

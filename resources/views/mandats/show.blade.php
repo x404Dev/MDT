@@ -2,17 +2,17 @@
 
 @section('content')
     <a class="btn btn-link pl-1 pd-3"
-        href="{{ route('dossiers.show', $rapport->dossier_id) }}"><i class="far fa-arrow-alt-circle-left"></i> Retour</a>
+        href="{{ route('mandats.index') }}"><i class="far fa-arrow-alt-circle-left"></i> Retour</a>
     <div class="card shadow"
         style="max-height: 80vh;">
         <div class=" card-header py-3 ">
-            <p class="text-primary m-0 font-weight-bold ">{{ $rapport->titre }}</p>
+            <p class="text-primary m-0 font-weight-bold ">{{ $mandat->titre }}</p>
         </div>
         <div class="card-body"
             style="overflow-y:scroll;">
             <div class="row ">
                 <div class="col-7">
-                    <form action="{{ route('rapports.update', $rapport->id) }}"
+                    <form action="{{ route('mandats.update', $mandat->id) }}"
                         method="POST">
                         @csrf
                         <input type="hidden"
@@ -20,15 +20,15 @@
                             value="PUT">
                         <input type="hidden"
                             name="charges"
-                            value="{{ $rapport->charges }}"
+                            value="{{ $mandat->charges }}"
                             class="charges-list">
                         <div class="input-group">
                             <label for="dossier-num"
-                                class="mr-4 mt-2">Report #: </label>
+                                class="mr-4 mt-2">Mandat #: </label>
                             <input id="dossier-num"
                                 class="dossier-input-red"
                                 readonly="readonly"
-                                value="{{ $rapport->id }}"
+                                value="{{ $mandat->id }}"
                                 style="width: 15% !important"
                                 placeholder="Nom">
                             <div class="ml-auto">
@@ -52,7 +52,7 @@
                                 readonly="readonly"
                                 id="nom"
                                 class="dossier-input-red"
-                                value="{{ $dossier->nom }}"
+                                value="{{ $mandat->dossier->nom }}"
                                 name="name"
                                 placeholder="Nom">
                         </div>
@@ -63,7 +63,7 @@
                                 required
                                 id="titre"
                                 class="dossier-input"
-                                value="{{ $rapport->titre }}"
+                                value="{{ $mandat->titre }}"
                                 name="titre"
                                 placeholder="Titre">
                         </div>
@@ -73,7 +73,7 @@
                             <textarea id="desc"
                                 class="dossier-input"
                                 name="notes"
-                                placeholder="Infos">{{ $rapport->notes }}</textarea>
+                                placeholder="Infos">{{ $mandat->notes }}</textarea>
                         </div>
                         <div class="input-group my-3">
                             <label for="nom"
@@ -82,20 +82,10 @@
                                 readonly="readonly"
                                 id="nom"
                                 class="dossier-input-red"
-                                value="{{ $rapport->author->name }}"
+                                value="{{ $mandat->author->name }}"
                                 placeholder="Nom">
                         </div>
                     </form>
-                    @if (auth()->user()->role_id == 1)
-                        <form id="delete-rapport"
-                            action="{{ route('rapports.destroy', $rapport->id) }}"
-                            method="POST">
-                            <input name="_method"
-                                type="hidden"
-                                value="DELETE">
-                            @csrf
-                        </form>
-                    @endif
                 </div>
                 <div class="col-5 text-center">
                     <div class="col-10 m-auto">
@@ -277,7 +267,7 @@
                             class="btn btn-secondary"
                             data-dismiss="modal">Fermer</button>
                         <form method="POST"
-                            action="{{ route('rapports.destroy', $rapport->id) }}">@csrf @method('DELETE')<button
+                            action="{{ route('mandats.destroy', $mandat->id) }}">@csrf @method('DELETE')<button
                                 type="submit"
                                 class="btn btn-danger">Supprimer</button></form>
                     </div>
