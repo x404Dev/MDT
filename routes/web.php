@@ -1,10 +1,10 @@
 <?php
 
+use App\Http\Controllers\ChargesController;
 use App\Http\Controllers\DossiersController;
+use App\Http\Controllers\MandatsController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RapportsController;
-use App\Http\Controllers\MandatsController;
-use App\Http\Controllers\ChargesController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -31,8 +31,13 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::resource('dossiers', DossiersController::class);
-    Route::resource('mandats', MandatsController::class);
-    
+    Route::resource('mandats', MandatsController::class)->except([
+        'create',
+        'store',
+    ]);
+    Route::get('dossiers/{id}/mandats', [MandatsController::class, 'create'])->name('mandats.create');
+
+    Route::post('dossiers/{id}/mandats', [MandatsController::class, 'store'])->name('mandats.store');
 
     Route::resource('dossiers.rapports', RapportsController::class)->shallow();
 });

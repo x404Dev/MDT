@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Dossier;
+use App\Models\Charge;
 
 class MandatsController extends Controller
 {
@@ -21,9 +23,13 @@ class MandatsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($id)
     {
         //
+        return view('mandats.create', [
+            'dossier' => Dossier::find($id),
+            'charges' => Charge::orderBy('nom')->get(),
+        ]);
     }
 
     /**
@@ -32,9 +38,24 @@ class MandatsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $id)
     {
-        //
+        $request->validate([
+            "titre" => 'required|min:5|max:255|string',
+            "notes" => 'required|min:5|string',
+        ]);
+
+        //store
+        $rapport = new Rapport();
+        $rapport->titre = $request->input('titre');
+        $rapport->notes = $request->input('notes');
+        $rapport->charges = $request->input('charges');
+        $rapport->dossier_id = $id;
+        $rapport->user_id = auth()->user()->id;
+        $rapport->save();
+
+        return redirect("/dossiers/" . $id)->with('success', 'Le mandat à été créé avec succès!');
+
     }
 
     /**

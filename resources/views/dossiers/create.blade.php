@@ -19,23 +19,23 @@
                         <hr>
                         <div class="input-group my-3">
                             <label for="nom" class="mr-4">Nom: </label>
-                            <input type="text" required id="nom" class="dossier-input" name="nom" placeholder="Nom">
+                            <input type="text" required id="nom" class="dossier-input" value="{{ old('nom') }}" name="nom" placeholder="Nom">
                         </div>
                         <div class="input-group my-3">
                             <label for="tel" class="mr-4">Téléphone: </label>
-                            <input type="text" id="tel" class="dossier-input" name="telephone" placeholder="Téléphone">
+                            <input type="text" id="tel" class="dossier-input" value="{{ old('telephone') }}" name="telephone" placeholder="Téléphone">
                         </div>
                         <div class="input-group my-3">
                             <label for="job" class="mr-4">Emploi: </label>
-                            <input type="text" id="job" class="dossier-input" name="emploi" placeholder="Emploi">
+                            <input type="text" id="job" class="dossier-input" value="{{ old('emploi') }}" name="emploi" placeholder="Emploi">
                         </div>
                         <div class="input-group my-3">
                             <label for="photo" class="mr-4">Photo: </label>
-                            <input type="text" id="photo" class="dossier-input" name="photo" placeholder="URL de la Photo">
+                            <input type="text" id="photo" class="dossier-input" value="{{ old('photo') }}" name="photo" placeholder="URL de la Photo">
                         </div>
                         <div class="input-group my-3">
                             <label for="desc" class="mr-4">Informations: </label>
-                            <textarea id="desc" class="dossier-input" name="notes" placeholder="Informations"></textarea>
+                            <textarea id="desc" class="dossier-input" name="notes" placeholder="Informations">{{ old('notes') }}</textarea>
                         </div>
                     </form>
                 </div>

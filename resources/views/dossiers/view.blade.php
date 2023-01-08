@@ -32,7 +32,7 @@
                                         data-target="#deleteModal"
                                         type="button"><i class="far fa-trash-alt"></i> Supprimer</button>
                                 @endif
-                                <a href="{{ route('dossiers.index', $dossier->id) }}"
+                                <a href="{{ route('mandats.create', $dossier->id) }}"
                                     class="btn save-btn"
                                     role="button"><i class="fas fa-hand-paper"></i> Mandat</a>
                                 <button class="btn save-btn ml-auto"

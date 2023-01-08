@@ -5,12 +5,12 @@
         Retour</a>
     <div class="card shadow" style="max-height: 80vh;">
         <div class=" card-header py-3 ">
-            <p class="text-primary m-0 font-weight-bold ">Nouveau Rapport</p>
+            <p class="text-primary m-0 font-weight-bold ">Nouveau Mandat</p>
         </div>
         <div class="card-body" style="overflow-y:scroll;">
             <div class="row ">
                 <div class="col-7">
-                    <form action="{{ route('dossiers.rapports.store', $dossier->id) }}" method="POST">
+                    <form action="{{ route('mandats.store', $dossier->id) }}" method="POST">
                         @csrf
                         <input type="hidden" name="charges" value="" class="charges-list">
                         <div class="input-group">
@@ -28,7 +28,7 @@
                         </div>
                         <div class="input-group my-3">
                             <label for="titre" class="mr-4">Titre: </label>
-                            <input type="text" required id="titre" value="{{ old('titre') }}" class="dossier-input" name="titre" placeholder="Titre">
+                            <input type="text" required id="titre" value="{{ {{ old('titre') }} }}" class="dossier-input" name="titre" placeholder="Titre">
                         </div>
                         <div class="input-group my-3">
                             <label for="notes" class="mr-4">Informations: </label>
