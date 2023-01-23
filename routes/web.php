@@ -6,6 +6,8 @@ use App\Http\Controllers\MandatsController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RapportsController;
 use App\Http\Controllers\BolosController;
+use App\Http\Controllers\UsersController;
+use App\Http\Controllers\RegisNumController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -47,6 +49,8 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware(['auth', 'admin'])->group(function () {
     Route::resource('charges', ChargesController::class);
+    Route::resource('registernumber', RegisNumController::class);
+    Route::resource('users', UsersController::class);
 });
 
 require __DIR__ . '/auth.php';

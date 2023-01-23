@@ -75,15 +75,31 @@
                                 name="notes"
                                 placeholder="Infos">{{ $rapport->notes }}</textarea>
                         </div>
-                        <div class="input-group my-3">
-                            <label for="nom"
-                                class="mr-4">Créé par: </label>
-                            <input type="text"
-                                readonly="readonly"
-                                id="nom"
-                                class="dossier-input-red"
-                                value="{{ $rapport->author->name }}"
-                                placeholder="Nom">
+                        <div class="row">
+                        <div class="col">
+                            <div class="input-group my-3">
+                                <label for="nom"
+                                    class="mr-4">Créé par: </label>
+                                <input type="text"
+                                    readonly="readonly"
+                                    id="nom"
+                                    class="dossier-input-red"
+                                    value="{{ $rapport->author->name }}"
+                                    placeholder="Nom">
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="input-group my-3">
+                                <label for="nom"
+                                    class="mr-4">Émis le: </label>
+                                <input type="text"
+                                    readonly="readonly"
+                                    id="nom"
+                                    class="dossier-input-red"
+                                    value="{{ $rapport->created_at }}"
+                                    placeholder="Nom">
+                            </div>
+                        </div>
                         </div>
                     </form>
                     @if (auth()->user()->role_id == 1)
@@ -285,5 +301,4 @@
             </div>
         </div>
     @endif
-
 @endsection

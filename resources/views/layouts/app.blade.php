@@ -264,7 +264,7 @@
                     <li class="nav-item"><a class="nav-link" style="padding: 1.2rem 3rem !important" href="/bolos"><i class="fas fa-binoculars"></i><span>BOLO</span></a></li>
                     @if (auth()->user()->role_id == 1)
                         <li class="nav-item"><a class="nav-link" style="padding: 1.2rem 3rem !important"
-                                href=""><i class="fas fa-cogs"></i><span>
+                                href="{{ route('users.index')}}"><i class="fas fa-cogs"></i><span>
                                     Utilisateurs</span></a></li>
                         <li class="nav-item"><a class="nav-link" style="padding: 1.2rem 3rem !important"
                                 href="{{ route('charges.index') }}"><i class="fas fa-cogs"></i><span>
