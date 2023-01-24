@@ -10,7 +10,6 @@
                 <div class="col-md-6 text-nowrap ">
                     <a class="btn blue-btn btn-sm d-none d-sm-inline-block" href="{{ route('charges.create') }}"
                         role="button"><i class="far fa-plus-square fa-sm"></i> Ajouter</a>
-
                 </div>
             </div>
             <div class="table-responsive table mt-2 " id="dataTable " role="grid " aria-describedby="dataTable_info ">
@@ -25,12 +24,12 @@
                     </thead>
                     <tbody>
                         @foreach ($charges as $charge)
-                            <tr>
-                                <td style="width: 65%" class="hoveru"><a href="{{ route('charges.show', $charge->id) }}">
+                            <tr class="charge-box">
+                                <td style="width: 65%" class="hoveru"><a class="charge-title" href="{{ route('charges.show', $charge->id) }}">
                                         {{ $charge->nom }}</a></td>
                                 <td class="text-center" class="hoveru">{{ $charge->cout }}$</td>
                                 <td class="text-center" class="hoveru">{{ $charge->mois }}</td>
-                                <td class="text-right">
+                                <td class="text-right" style="white-space: nowrap">
                                     <a class="btn grey-btn btn-sm" href="{{ route('charges.show', $charge->id) }}"><i
                                         class="fas fa-pencil-alt"></i> Modifier</a>
                                 </td>

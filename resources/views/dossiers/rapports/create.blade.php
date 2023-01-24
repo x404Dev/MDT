@@ -76,8 +76,11 @@
                 <div class="modal-body" style="overflow-y:scroll;">
                     <div class="container">
                         <div class="row">
+                            <div class="input-group my-2">
+                                <input type="text" id="recherche-charge" class="dossier-input" placeholder="Recherche">
+                            </div>
                             @foreach ($charges as $charge)
-                                <div class="col-3 text-center" style="padding: 1px !important">
+                                <div class="col-3 text-center charge-box" style="padding: 1px !important">
                                     <div class="item-box" style="height: 100px">
                                         <input type="hidden" class="charge-id" value="{{ $charge->id }}">
                                         <h6 class="text-white px-3 pt-3 mb-0 charge-title" style="font-size: 20px">

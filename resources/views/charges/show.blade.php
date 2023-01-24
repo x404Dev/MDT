@@ -17,24 +17,17 @@
                             <label for="dossier-num" class="mr-4 mt-2">Charge #: </label>
                             <input id="dossier-num" class="dossier-input-red" readonly="readonly" value="00"
                                 style="width: 15% !important" placeholder="Nom">
-                                <form id="delete-rapport" action="{{ route('charges.destroy', $charge->id) }}"
-                                    method="POST">
-                                    <input name="_method" type="hidden" value="DELETE">
-                                    @csrf
-                                    
-                                    <button type="submit" class="btn save-btn ml-auto"><i class="far fa-trash-alt"></i>
-                                        Supprimer</button>
-                                </form>
-                            <button class="btn save-btn ml-3" type="submit"><i class="far fa-save"></i>
+
+                            <button class="btn save-btn ml-auto" type="submit"><i class="far fa-save"></i>
                                 Sauvegarder</button>
-                            
+
                         </div>
                         <hr>
                         <div class="row">
                             <div class="col-6">
                                 <div class="input-group my-3">
                                     <label for="nom" class="mr-2">Nom: </label>
-                                    <input type="text" required id="nom" value="{{ $charge->nom }}" class="dossier-input" name="nom"
+                                    <input type="text" id="nom" value="{{ $charge->nom }}" class="dossier-input" name="nom"
                                         placeholder="Nom">
                                 </div>
                             </div>
@@ -54,6 +47,7 @@
                             </div>
                         </div>
                     </form>
+                    <em>*Pour supprimer la charge, sauvegarder la charge sans le titre.</em>
                 </div>
             </div>
         </div>

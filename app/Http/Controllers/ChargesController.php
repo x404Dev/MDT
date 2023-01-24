@@ -94,12 +94,22 @@ class ChargesController extends Controller
      */
     public function update(Request $request, $id)
     {
+        if(!$request->get('nom')) {
+            $charge = Charge::find($id);
+            if($charge == null) {
+                return redirect('/charges')->with('error', 'Charge introuvable');
+            }
+            $charge->delete();
+
+            return redirect('/charges')->with('success', 'Charge supprimée');
+        }
+
         $request->validate([
             'nom' => 'required|string|min:3|max:45',
             'cout' => 'required|integer|min:0',
             'mois' => 'required|integer|min:0'
         ]);
-        
+
         $charge = Charge::find($id);
         if(!$charge) {
             return redirect('/charges')->with('error', 'Charge introuvable');
